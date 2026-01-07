@@ -183,14 +183,3 @@ extension AutoEquatableMacro: MemberMacro {
             .joined(separator: "\n")
     }
 }
-
-
-
-@main
-struct AutoEquatablePlugin: CompilerPlugin {
-    let providingMacros: [Macro.Type] = [
-        AutoEquatableMacro.self,
-    ]
-}
-
-
