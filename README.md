@@ -115,7 +115,7 @@ struct Profile {
 struct User {
     let id: Int
 
-    @AutoRequiredChild(\.email)
+    @AutoRequiredChild(\Profile.email)
     let profile: Profile
 }
 
