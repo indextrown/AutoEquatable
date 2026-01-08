@@ -32,17 +32,36 @@ Swift의 기본 `Equatable` 자동 합성은 간단하지만 실제 앱 프로�
 
 ## ✅ How to Use
 ```swift
+struct Profile {
+    let email: String
+    let age: Int
+}
+
 @AutoEquatable
 struct User {
+
+    // 가장 먼저 비교하고 싶은 핵심 식별자
+    @AutoPriority(0)
     let id: Int
+    
+    // 어노테이션을 쓰지 않으면 기본 비교 대상입니다 (@AutoRequired)
     let name: String
+    
+    // 하위 KeyPath 기준 비교
+    @AutoRequiredChild(\Profile.email)
+    let profile: Profile
+    
+    // 클로저 / 함수 타입은 자동 비교 대상에서 제외됩니다 (@AutoIgnored)
+    let onTap: () -> Void
 }
 
 ⬇️ 컴파일 타임에 자동 생성
+
 extension User: Equatable {}
 static func == (lhs: User, rhs: User) -> Bool {
     if lhs.id != rhs.id { return false }
     if lhs.name != rhs.name { return false }
+    if lhs.profile.email != rhs.profile.email { return false }
     return true
 }
 ```
