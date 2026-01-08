@@ -45,7 +45,7 @@ func shouldUpdateView<V: View>(_ oldView: V, _ newView: V) -> Bool {
 }
 ```
 > ⚠️ 위 코드는 실제 SwiftUI 구현이 아니라
-> View diffing의 의사 결정 흐름을 설명하기 위한 개념적 예시입니다ㅣ
+> View diffing의 의사 결정 흐름을 설명하기 위한 개념적 예시입니다.
 
 ## 기존에 사용되던 해결 방법들
 1. `EqutableView` 사용 or View에 `Equtable` 채택하여 동등성(==)기준 직접 정의
