@@ -1,6 +1,6 @@
 #  AutoEquatable
 > AutoEquatable은 SwiftUI의 불필요한 View 재계산을 줄이기 위해
-> View의 동등성 기준을 선언적으로 정의하고
+> View의 동등성 기준을 선언적으로 정의하고  
 > `Equatable` 구현을 컴파일 타임에 자동 생성하는 Swift Macro입니다.
 
 <!-- <img
