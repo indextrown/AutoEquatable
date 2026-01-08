@@ -28,7 +28,7 @@ Swift의 기본 `Equatable` 자동 합섭은 간단하지만 실제 앱 프로�
 
 ---
 
-## How to Use
+## ✅ How to Use
 ```swift
 @AutoEquatable
 struct User {
