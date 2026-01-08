@@ -106,7 +106,7 @@ extension AutoEquatableMacro: MemberMacro {
             compareBody =
             """
             return (
-            \(indentLines(lines, level: 1))
+            \(IndentUtils.indentLines(lines, level: 1))
             )
             """
         }
@@ -115,14 +115,14 @@ extension AutoEquatableMacro: MemberMacro {
         let function =
         """
         static func == (lhs: \(typeName), rhs: \(typeName)) -> Bool {
-        \(indentLines(compareBody, level: 0))
+        \(IndentUtils.indentLines(compareBody, level: 0))
         }
         """
 
         // 🔥 struct 내부 멤버이므로 전체를 한 번 더 들여쓰기
         let funcDecl: DeclSyntax =
         """
-        \(raw: indentLines(function, level: 0))
+        \(raw: IndentUtils.indentLines(function, level: 0))
         """
 
         
@@ -174,12 +174,12 @@ extension AutoEquatableMacro: MemberMacro {
         return false
     }
     
-    private static let indent = "    " // 4 spaces
-    private static func indentLines(_ text: String, level: Int) -> String {
-        let prefix = String(repeating: indent, count: level)
-        return text
-            .split(separator: "\n", omittingEmptySubsequences: false)
-            .map { prefix + $0 }
-            .joined(separator: "\n")
-    }
+//    private static let indent = "    " // 4 spaces
+//    private static func indentLines(_ text: String, level: Int) -> String {
+//        let prefix = String(repeating: indent, count: level)
+//        return text
+//            .split(separator: "\n", omittingEmptySubsequences: false)
+//            .map { prefix + $0 }
+//            .joined(separator: "\n")
+//    }
 }

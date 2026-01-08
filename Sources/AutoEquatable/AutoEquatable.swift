@@ -20,3 +20,7 @@ public macro AutoIgnored() =
 @attached(peer)
 public macro AutoRequired() =
 #externalMacro(module: "AutoEquatableMacros", type: "AutoRequiredMacro")
+
+@attached(peer)
+public macro AutoRequiredChild(_ keyPath: Any) =
+#externalMacro(module: "AutoEquatableMacros", type: "AutoRequiredChildMacro")

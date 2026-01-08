@@ -24,6 +24,7 @@ struct FeedItem {
     let subtitle: String?
     let isLiked: Bool
     let likeCount: Int
+    @AutoRequired
     let createdAt: Date
 
     // === 컬렉션 타입 ===

@@ -13,5 +13,9 @@ import SwiftSyntaxMacros
 struct AutoEquatablePlugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
         AutoEquatableMacro.self,
+        AutoPriorityMacro.self,
+        AutoIgnoredMacro.self,
+        AutoRequiredMacro.self,
+        AutoRequiredChildMacro.self,
     ]
 }
