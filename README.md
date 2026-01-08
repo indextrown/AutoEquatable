@@ -21,6 +21,14 @@ AutoEquatable는 이 문제를 선언적으로 해결하기 위해 만들어졌�
 
 ---
 
+## AutoEquatable란?
+`AutoEquatable`는 Swift Macro를 이용해 `Equatable` 구현을 자동 생성하면서도  
+- 무엇을 비교할지
+- 어떤 순서로 비교할지
+를 어노테이션(DSL) 형태로 명확하게 선언할 수 있도록 설계된 라이브러리입니다.
+
+---
+
 ## AutoEquatable = Equatable 최적화를 위한 DSL
 @AutoEquatable를 사용하면 SwiftUI에서 .equatable()을 안전하고, 짧고, 의도적으로 사용할 수 있습니다.
 - ✅ 변경되지 않은 셀은 다시 그리지 않음
@@ -29,12 +37,6 @@ AutoEquatable는 이 문제를 선언적으로 해결하기 위해 만들어졌�
 - ✅ SwiftUI List 성능 최적화를 위한 최소 비용 도구
 
 ---
-
-## AutoEquatable란?
-`AutoEquatable`는 Swift Macro를 이용해 `Equatable` 구현을 자동 생성하면서도  
-- 무엇을 비교할지
-- 어떤 순서로 비교할지
-를 어노테이션(DSL) 형태로 명확하게 선언할 수 있도록 설계된 라이브러리입니다.
 
 ## 왜 필요한가?
 Swift의 기본 `Equatable` 자동 합성은 편리하지만, 실제 앱 프로젝트에서는 다음과 같은 한계에 자주 부딪힙니다.
@@ -262,7 +264,3 @@ extension User: {
 `AutoEquatable`는 이 문제를 컴파일 타임에 해결합니다.
 - 함수/클로저 타입은 자동으로 비교 대상에서 제외
 - 추가 어노테이션 없이도 Equatable 합성 가능
-
-## 💡 Design Philosophy
-- 컴파일 타임 코드 생성
-- 선언적 DSL -> 비교 로직이 타입 정의에 드러남
