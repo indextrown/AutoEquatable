@@ -1,6 +1,27 @@
 #  AutoEquatable
 > Swift Macro로 Equtable 구현을 선언적으로 제어할 수 있습니다
 
+## Stop unnecessary view updates in SwiftUI Lists
+SwiftUI의 `List/ForEach`에서 하나의 셀만 변경했는데 모든 셀이 다시 그려지는 문제를 겼어본 적 있나요?
+이 문제를 해결하렴녀 보통
+- `EqutableView`
+- .equtable()
+- 수동 `static func ==` 구현
+같은 번거로운 보일러플레이트가 필요합니다
+AutoEquatable는 이 문제를 선언적으로 해결하기 위해 만들어졌습니다.
+
+---
+
+## AutoEquatable = Equatable 최적화를 위한 DSL
+@AutoEquatable를 사용하면 SwiftUI에서 .equatable()을 안전하고, 짧고, 의도적으로 사용할 수 있습니다.
+- ✅ 변경되지 않은 셀은 다시 그리지 않음
+- ✅ 비교 기준을 타입 정의에서 명확히 선언
+- ✅ 실수하기 쉬운 == 구현을 컴파일 타임에 생성
+- ✅ SwiftUI List 성능 최적화를 위한 최소 비용 도구
+
+---
+
+## AutoEquatable
 `AutoEquatable`는 Swift Macro를 이용해  
 `Equatable` 구현을 자동 생성하면서도  
 - 무엇을 비교할지
