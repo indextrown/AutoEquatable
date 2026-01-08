@@ -15,7 +15,7 @@ Swift의 기본 `Equatable` 자동 합성은 편리하지만, 실제 앱 프로�
 - 클로저/함수 타입이 포함되면 Equatable 자동 합성이 아예 실패
 => 결국 간단한 모델 하나에도 `==` 구현이 보일러플레이트로 늘어나는 문제가 생깁니다.
 
-## `AutoEquatable`
+## AutoEquatable 철학
 AutoEquatable는 이 문제를 선언적 DSL + 컴파일 타임 코드 생성으로 해결합니다.
 - 비교 대상은 어노테이션으로 선언
 - 비교 순서는 priority로 명시
