@@ -6,7 +6,7 @@
   width="400"
 />
 ## SwiftUI List에서 불필요한 View 업데이트를 멈추세요
-SwiftUI의 `List/ForEach`에서 하나의 셀만 변경했는데 모든 셀이 다시 그려지는 문제를 겼어본 적 있나요?
+SwiftUI의 `List/ForEach`에서 하나의 셀만 변경했는데 모든 셀이 다시 그려지는 문제를 겼어본 적 있나요?  
 이 문제를 해결하려면 보통 다음과 같은 방법이 필요합니다.
 - `EqutableView` 사용
 - .equtable() 적용
