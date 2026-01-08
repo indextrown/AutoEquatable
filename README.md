@@ -57,10 +57,10 @@ func shouldUpdateView<V: View>(_ oldView: V, _ newView: V) -> Bool {
 - 비교 기준이 View 정의와 분리되며
 - 수정 시 실수하기 쉽고 유지보수가 어렵다는 단점이 있습니다.
 
-> AutoEquatable는 이러한 문제를 선언적으로 해결하기 위해 만들어졌습니다.
-> 비교 기준을 타입 정의에서 명확히 선언하고,
-> SwiftUI diffing 과정에서 불필요한 body 재계산을 줄이기 위한
-> `Equatable` 구현을 컴파일 타임에 안전하게 생성합니다.
+> AutoEquatable는 이러한 문제를 선언적으로 해결하기 위해 만들어졌습니다.  
+> 비교 기준을 타입 정의에서 명확히 선언하고,  
+> SwiftUI diffing 과정에서 불필요한 body 재계산을 줄이기 위한  
+> `Equatable` 구현을 컴파일 타임에 안전하게 생성합니다.  
 
 ---
 
