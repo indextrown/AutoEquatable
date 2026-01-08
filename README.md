@@ -95,7 +95,7 @@ struct User {
 ⬇️ 컴파일 타임에 자동 생성
 
 extension User: Equatable {}
-extension User: Equatable {
+extension User {
     static func == (lhs: User, rhs: User) -> Bool {
         if lhs.id != rhs.id { return false }
         if lhs.name != rhs.name { return false }
@@ -117,9 +117,11 @@ struct Model {
 ⬇️ 생성 코드
 
 extension Model: Equatable {}
-static func == (lhs: Model, rhs: Model) -> Bool {
-    if lhs.id != rhs.id { return false }
-    return true
+extension Model: {
+    static func == (lhs: Model, rhs: Model) -> Bool {
+        if lhs.id != rhs.id { return false }
+        return true
+    }
 }
 ```
 
@@ -134,9 +136,12 @@ struct User {
 
 ⬇️ 생성 코드
 
-static func == (lhs: User, rhs: User) -> Bool {
-    if lhs.id != rhs.id { return false }
-    return true
+extension User: Equatable {}
+extension User: {
+    static func == (lhs: User, rhs: User) -> Bool {
+        if lhs.id != rhs.id { return false }
+        return true
+    }
 }
 ```
 
@@ -154,10 +159,13 @@ struct User {
 
 ⬇️ 생성 코드
 
-static func == (lhs: User, rhs: User) -> Bool {
-    if lhs.id != rhs.id { return false }
-    if lhs.name != rhs.name { return false }
-    return true
+extension User: Equatable {}
+extension User: {
+    static func == (lhs: User, rhs: User) -> Bool {
+        if lhs.id != rhs.id { return false }
+        if lhs.name != rhs.name { return false }
+        return true
+    }
 }
 ```
 
@@ -179,10 +187,13 @@ struct User {
 
 ⬇️ 생성 코드
 
-static func == (lhs: User, rhs: User) -> Bool {
-    if lhs.id != rhs.id { return false }
-    if lhs.profile.email != rhs.profile.email { return false }
-    return true
+extension User: Equatable {}
+extension User: {
+    static func == (lhs: User, rhs: User) -> Bool {
+        if lhs.id != rhs.id { return false }
+        if lhs.profile.email != rhs.profile.email { return false }
+        return true
+    }
 }
 ```
 
@@ -197,10 +208,13 @@ struct User {
 
 ⬇️ 생성 코드
 
-static func == (lhs: User, rhs: User) -> Bool {
-    if lhs.id != rhs.id { return false }
-    if lhs.name != rhs.name { return false }
-    return true
+extension User: Equatable {}
+extension User: {
+    static func == (lhs: User, rhs: User) -> Bool {
+        if lhs.id != rhs.id { return false }
+        if lhs.name != rhs.name { return false }
+        return true
+    }
 }
 ```
 
@@ -217,7 +231,7 @@ struct User {
 }
 ```
 
-## Closure Handling (차별점)
+## Closure Handling 
 ```swift
 struct User: Equatable {
     let id: Int
@@ -237,11 +251,13 @@ struct User {
 
 ⬇️ 생성 코드
 
-static func == (lhs: User, rhs: User) -> Bool {
-    if lhs.id != rhs.id { return false }
-    return true
+extension User: Equatable {}
+extension User: {
+    static func == (lhs: User, rhs: User) -> Bool {
+        if lhs.id != rhs.id { return false }
+        return true
+    }
 }
-
 ```
 `AutoEquatable`는 이 문제를 컴파일 타임에 해결합니다.
 - 함수/클로저 타입은 자동으로 비교 대상에서 제외
