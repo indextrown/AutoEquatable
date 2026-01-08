@@ -1,5 +1,7 @@
 #  AutoEquatable
-> Swift Macro로 Equtable 구현을 선언적으로 제어할 수 있습니다
+> AutoEquatable은 SwiftUI의 불필요한 View 재계산을 줄이기 위해
+> View의 동등성 기준을 선언적으로 정의하고
+> `Equatable` 구현을 컴파일 타임에 자동 생성하는 Swift Macro입니다.
 
 <!-- <img
   src="https://github.com/user-attachments/assets/48cc1dab-ad53-4e4a-aeeb-974e9e581cec"
@@ -10,15 +12,60 @@
   src="https://github.com/user-attachments/assets/3938e583-0fc4-4620-99b0-bf761e60a1ba"
   width="400"
 />
-## SwiftUI List에서 불필요한 View 업데이트를 멈추세요
-SwiftUI의 `List/ForEach`에서 하나의 셀만 변경했는데 모든 셀이 다시 그려지는 문제를 겼어본 적 있나요?  
-이 문제를 해결하려면 보통 다음과 같은 방법이 필요합니다.
-1. `EqutableView` 사용
-2. .equtable() 적용
-3. 수동 `static func ==` 수동 구현(보일러플레이트)      
+## SwiftUI에서 불필요한 View 업데이트를 멈추세요
 
-하지만 이 과정에는 3번과 같은 항상 번거로운 보일러플레이트 코드가 따라옵니다.  
-AutoEquatable는 이 문제를 선언적으로 해결하기 위해 만들어졌습니다.
+SwiftUI에서 하나의 셀만 변경했는데
+의미 있는 변화가 없는 다른 View들까지 다시 그려지는 문제를 겪어본 적 있나요?    
+
+이 문제는 SwiftUI의 diffing 과정에서
+“이전 View와 새로운 View가 같은지 판단할 기준이 없을 때” 발생합니다.  
+
+SwiftUI는 View를 다시 그릴지 결정하기 위해
+View의 타입과 구조를 기반으로 변경 여부를 추론합니다.
+
+아래 코드는 SwiftUI의 내부 diffing 과정을 개념적으로 표현한 의사 코드입니다.
+
+```swift
+// SwiftUI 는 리플렉션 API(Mirror)를 써서 
+func shouldUpdateView<V: View>(_ oldView: V, _ newView: V) -> Bool {
+    // 1. Equatable 타입이면 == 연산자 사용
+    if V.self is Equatable.Type {
+        return oldView != newView
+    }
+    
+    // 2. 값 타입(struct)이면 재귀적으로 프로퍼티 비교
+    if V.self is ValueType {
+        return compareProperties(oldView, newView)
+    }
+    
+    // 3. 참조 타입(class)이면 참조 동일성 비교
+    if V.self is ReferenceType {
+        return oldView !== newView
+    }
+    
+    // 4. 클로저는 비교 불가능 - 항상 다르다고 가정
+    if containsClosures(V.self) {
+        return true
+    }
+}
+```
+> ⚠️ 위 코드는 실제 SwiftUI 구현이 아니라
+> View diffing의 의사 결정 흐름을 설명하기 위한 개념적 예시입니다ㅣ
+
+## 기존에 사용되던 해결 방법들
+1. `EqutableView` 사용 or View에 `Equtable` 채택하여 동등성(==)기준 직접 정의
+2. `.equtable()` modifier 적용(View 비교를 SwiftUI diffing 단계에 명시적으로 참여시킴)
+3. 수동 `static func ==` 수동 구현(보일러플레이트 코드 발생)      
+
+이 과정은 효과적이지만,  
+- 코드가 장황해지고
+- 비교 기준이 View 정의와 분리되며
+- 수정 시 실수하기 쉽고 유지보수가 어렵다는 단점이 있습니다.
+
+> AutoEquatable는 이러한 문제를 선언적으로 해결하기 위해 만들어졌습니다.
+> 비교 기준을 타입 정의에서 명확히 선언하고,
+> SwiftUI diffing 과정에서 불필요한 body 재계산을 줄이기 위한
+> `Equatable` 구현을 컴파일 타임에 안전하게 생성합니다.
 
 ---
 
