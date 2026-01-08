@@ -21,7 +21,7 @@ SwiftUI에서 하나의 셀만 변경했는데
 - 아래 코드는 SwiftUI의 내부 diffing 과정을 개념적으로 표현한 의사 코드입니다.
 
 ```swift
-// SwiftUI 는 리플렉션 API(Mirror)를 써서 
+// SwiftUI diffing 과정 의사 코드
 func shouldUpdateView<V: View>(_ oldView: V, _ newView: V) -> Bool {
     // 1. Equatable 타입이면 == 연산자 사용
     if V.self is Equatable.Type {
