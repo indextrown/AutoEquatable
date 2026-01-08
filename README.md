@@ -1,8 +1,13 @@
 #  AutoEquatable
 > Swift Macro로 Equtable 구현을 선언적으로 제어할 수 있습니다
 
-<img
+<!-- <img
   src="https://github.com/user-attachments/assets/48cc1dab-ad53-4e4a-aeeb-974e9e581cec"
+  width="400"
+/> -->
+
+<img
+  src="https://github.com/user-attachments/assets/3938e583-0fc4-4620-99b0-bf761e60a1ba"
   width="400"
 />
 ## SwiftUI List에서 불필요한 View 업데이트를 멈추세요
