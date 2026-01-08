@@ -1,8 +1,10 @@
 #  AutoEquatable
 > Swift Macro로 Equtable 구현을 선언적으로 제어할 수 있습니다
 
-![화면-기록-2026-01-08-오후-7 53 37](https://github.com/user-attachments/assets/48cc1dab-ad53-4e4a-aeeb-974e9e581cec)
-
+<img
+  src="https://github.com/user-attachments/assets/48cc1dab-ad53-4e4a-aeeb-974e9e581cec"
+  width="400"
+/>
 ## SwiftUI List에서 불필요한 View 업데이트를 멈추세요
 SwiftUI의 `List/ForEach`에서 하나의 셀만 변경했는데 모든 셀이 다시 그려지는 문제를 겼어본 적 있나요?
 이 문제를 해결하려면 보통 다음과 같은 방법이 필요합니다.
