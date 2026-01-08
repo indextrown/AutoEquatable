@@ -95,11 +95,13 @@ struct User {
 ⬇️ 컴파일 타임에 자동 생성
 
 extension User: Equatable {}
-static func == (lhs: User, rhs: User) -> Bool {
-    if lhs.id != rhs.id { return false }
-    if lhs.name != rhs.name { return false }
-    if lhs.profile.email != rhs.profile.email { return false }
-    return true
+extension User: Equatable {
+    static func == (lhs: User, rhs: User) -> Bool {
+        if lhs.id != rhs.id { return false }
+        if lhs.name != rhs.name { return false }
+        if lhs.profile.email != rhs.profile.email { return false }
+        return true
+    }
 }
 ```
 
