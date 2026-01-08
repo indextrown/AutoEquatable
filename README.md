@@ -16,14 +16,9 @@
 
 SwiftUI에서 하나의 셀만 변경했는데
 의미 있는 변화가 없는 다른 View들까지 다시 그려지는 문제를 겪어본 적 있나요?    
-
-이 문제는 SwiftUI의 diffing 과정에서
-“이전 View와 새로운 View가 같은지 판단할 기준이 없을 때” 발생합니다.  
-
-SwiftUI는 View를 다시 그릴지 결정하기 위해
-View의 타입과 구조를 기반으로 변경 여부를 추론합니다.
-
-아래 코드는 SwiftUI의 내부 diffing 과정을 개념적으로 표현한 의사 코드입니다.
+- 이 문제는 SwiftUI의 diffing 과정에서 “이전 View와 새로운 View가 같은지 판단할 기준이 없을 때” 발생합니다.  
+- SwiftUI는 View를 다시 그릴지 결정하기 위해 View의 타입과 구조를 기반으로 변경 여부를 추론합니다.
+- 아래 코드는 SwiftUI의 내부 diffing 과정을 개념적으로 표현한 의사 코드입니다.
 
 ```swift
 // SwiftUI 는 리플렉션 API(Mirror)를 써서 
