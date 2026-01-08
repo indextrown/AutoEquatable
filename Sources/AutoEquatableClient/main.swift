@@ -17,6 +17,21 @@ print(a == b) // true (onTap 제외라서)
 // MARK: - example2
 @AutoEquatable
 struct FeedItem {
+    /*
+    static func == (lhs: FeedItem, rhs: FeedItem) -> Bool {
+        return (
+            lhs.id == rhs.id &&
+            lhs.title == rhs.title &&
+            lhs.subtitle == rhs.subtitle &&
+            lhs.isLiked == rhs.isLiked &&
+            lhs.likeCount == rhs.likeCount &&
+            lhs.createdAt == rhs.createdAt &&
+            lhs.tags == rhs.tags &&
+            lhs.metadata == rhs.metadata &&
+            lhs.author == rhs.author
+        )
+    }
+    */
 
     // === 기본 stored properties (비교 대상) ===
     let id: Int
@@ -53,21 +68,7 @@ struct Author: Equatable {
     let name: String
 }
 
-/*
-static func == (lhs: FeedItem, rhs: FeedItem) -> Bool {
-    return (
-        lhs.id == rhs.id &&
-        lhs.title == rhs.title &&
-        lhs.subtitle == rhs.subtitle &&
-        lhs.isLiked == rhs.isLiked &&
-        lhs.likeCount == rhs.likeCount &&
-        lhs.createdAt == rhs.createdAt &&
-        lhs.tags == rhs.tags &&
-        lhs.metadata == rhs.metadata &&
-        lhs.author == rhs.author
-    )
-}
-*/
+
 
 let c = FeedItem(
     id: 1,
@@ -101,3 +102,40 @@ let d = FeedItem(
 
 print(c == d) // ✅ true (클로저 전부 무시)
 
+
+
+struct Popup: Identifiable {
+    var id: String { popupUuid }
+    let popupUuid: String
+    let name: String
+    var favoriteCount: Int
+}
+
+@AutoEquatable
+struct AlertPopupCellLike {
+    @AutoRequiredChild(\Popup.id)
+    @AutoPriority(10)
+    let popup: Popup
+
+    @AutoRequired
+    let isLiked: Bool
+
+    @AutoIgnored
+    let onToggleLike: () -> Void
+}
+
+// 간단 테스트
+let e = AlertPopupCellLike(
+    popup: .init(popupUuid: "1", name: "A", favoriteCount: 10),
+    isLiked: true,
+    onToggleLike: {}
+)
+
+let f = AlertPopupCellLike(
+    popup: .init(popupUuid: "1", name: "B", favoriteCount: 999),
+    isLiked: true,
+    onToggleLike: {}
+)
+
+// popup.id만 비교하므로 true가 나와야 함
+print(a == b) // true

@@ -33,11 +33,17 @@ let package = Package(
             ]
         ),
 
-        // Library that exposes a macro as part of its API, which is used in client programs.
+        // MARK: - Public Library
         .target(name: "AutoEquatable", dependencies: ["AutoEquatableMacros"]),
 
-        // A client of the library, which is able to use the macro in its own code.
+        // MARK: - Client
         .executableTarget(name: "AutoEquatableClient", dependencies: ["AutoEquatable"]),
 
+        // MARK: - Tests
+        .testTarget(name: "AutoEquatableTests",
+                    dependencies: [
+                        "AutoEquatableMacros",
+                        .product(name: "SwiftSyntax", package: "swift-syntax"),
+                    ])
     ]
 )
