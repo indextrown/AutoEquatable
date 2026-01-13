@@ -34,7 +34,7 @@ let package = Package(
         ),
 
         // MARK: - Public Library
-        .target(name: "AutoEquatable", dependencies: ["AutoEquatableMacros"]),
+        .target(name: "AutoEquatable", dependencies: []),
 
         // MARK: - Client
         .executableTarget(name: "AutoEquatableClient", dependencies: ["AutoEquatable"]),
