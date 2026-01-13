@@ -273,8 +273,14 @@ extension AutoEquatableMacro: MemberMacro {
             if varDecl.modifiers.contains(where: { $0.name.tokenKind == .keyword(.static) }) { continue }
             
             for binding in varDecl.bindings {
-                // computed 제외 (get/set/observer 등 accessor가 있으면 stored가 아닐 가능성이 큼)
+                
+                /// computed 제외
+                /// (get/set/observer 등 accessor가 있으면 stored가 아닐 가능성이 큼)
                 if binding.accessorBlock != nil { continue }
+                
+                /// 클로저 리터럴 제외
+                if let initializer = binding.initializer,
+                   initializer.value.is(ClosureExprSyntax.self) { continue }
                 
                 // 이름 추출(let title: String)
                 guard let ident = binding.pattern.as(IdentifierPatternSyntax.self) else { continue }
@@ -282,21 +288,40 @@ extension AutoEquatableMacro: MemberMacro {
                 
                 // 함수/클로저 타입 제외
                 if let typeSyntax = binding.typeAnnotation?.type,
-                   isFunctionLikeType(typeSyntax) { continue }
+                   containsFunctionType(typeSyntax) { continue }
                 result.append(name)
             }
         }
         return result
     }
     
-    /// 함수/클로저 타입인지 판별
-    /// (A) -> B, () -> Void
-    private static func isFunctionLikeType(_ type: TypeSyntax) -> Bool {
-        if type.as(FunctionTypeSyntax.self) != nil { return true }
+    // 타입 내부에 함수 타입이 있으면 true
+    private static func containsFunctionType(_ type: TypeSyntax) -> Bool {
+        // (A) -> B
+        if type.is(FunctionTypeSyntax.self) {
+            return true
+        }
         
-        // @escaping (A) -> B 같은 attributed type도 처리
+        // @escaping (...)
         if let attributed = type.as(AttributedTypeSyntax.self) {
-            return attributed.baseType.as(FunctionTypeSyntax.self) != nil
+            return containsFunctionType(attributed.baseType)
+        }
+        
+        // (() -> Void)?
+        if let optional = type.as(OptionalTypeSyntax.self) {
+            return containsFunctionType(optional.wrappedType)
+        }
+        
+        // [String: () -> Void]
+        if let dict = type.as(DictionaryTypeSyntax.self) {
+            return containsFunctionType(dict.value)
+        }
+        
+        // Tuple 안에 함수가 있는 경우
+        if let tuple = type.as(TupleTypeSyntax.self) {
+            return tuple.elements.contains {
+                containsFunctionType($0.type)
+            }
         }
         
         return false
