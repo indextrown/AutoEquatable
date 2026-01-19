@@ -13,7 +13,7 @@ let package = Package(
         // 런타임 라이브러리
         .library(
             name: "AutoEquatable",
-            targets: ["AutoEquatable"]
+            targets: ["AutoEquatable"],
         ),
         
         // 예제용 실행 파일
@@ -45,22 +45,28 @@ let package = Package(
         // =========================
         // 2️⃣ 런타임 라이브러리
         // =========================
-        .target(name: "AutoEquatable", dependencies: []),
+        .target(
+            name: "AutoEquatable",
+               dependencies: ["AutoEquatableMacros"]
+           ),
 
         // MARK: - Client
         // =========================
-       // 3️⃣ Client (예제)
-       // =========================
-        .executableTarget(name: "AutoEquatableClient", dependencies: ["AutoEquatable"]),
+        // 3️⃣ Client (예제)
+        // =========================
+        .executableTarget(
+            name: "AutoEquatableClient",
+            dependencies: ["AutoEquatable"]),
 
         // MARK: - Tests
         // =========================
         // 4️⃣ Tests
         // =========================
-        .testTarget(name: "AutoEquatableTests",
-                    dependencies: [
-                        "AutoEquatableMacros",
-                        .product(name: "SwiftSyntax", package: "swift-syntax"),
-                    ])
+        .testTarget(
+            name: "AutoEquatableTests",
+                dependencies: [
+                    "AutoEquatableMacros",
+                    .product(name: "SwiftSyntax", package: "swift-syntax"),
+                ])
     ]
 )
