@@ -139,3 +139,9 @@ let f = AlertPopupCellLike(
 
 // popup.id만 비교하므로 true가 나와야 함
 print(a == b) // true
+
+
+struct Sample: Equatable {
+    let a: Int
+    let b: String
+}

@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:AutoEquatable}",
+            "name": "Debug AutoEquatableClient",
+            "target": "AutoEquatableClient",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug AutoEquatableClient"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:AutoEquatable}",
+            "name": "Release AutoEquatableClient",
+            "target": "AutoEquatableClient",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release AutoEquatableClient"
+        }
+    ]
+}
